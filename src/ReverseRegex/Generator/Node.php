@@ -2,13 +2,14 @@
 namespace ReverseRegex\Generator;
 
 use \ArrayObject;
+use Closure;
 use \SplObjectStorage;
 use \ArrayAccess;
 use \Countable;
 use \Iterator;
 
 /**
-  *  Base to all Generator Scopes 
+  *  Base to all Generator Scopes
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
@@ -16,17 +17,17 @@ use \Iterator;
 class Node implements ArrayAccess, Countable, Iterator
 {
     /**
-      *  @var string name of the node 
+      *  @var string name of the node
       */
     protected $label;
-    
+
     /**
-      *  @var ArrayObject container for node metadata 
+      *  @var ArrayObject container for node metadata
       */
     protected $attrs;
-    
+
     /**
-      *  @var SplObjectStorage container for node relationships 
+      *  @var SplObjectStorage container for node relationships
       */
     protected $links;
 
@@ -120,12 +121,12 @@ class Node implements ArrayAccess, Countable, Iterator
 
         return false;
     }
-  
-   /**
+
+    /**
      *  Apply a closure to all relations
      *
-     *  @access public
-     *  @param Closer the function to apply
+     * @access public
+     * @param \Closure $function the function to apply
      */
     public function map(Closure $function)
     {
@@ -133,15 +134,15 @@ class Node implements ArrayAccess, Countable, Iterator
             $function($node);
         }
     }
-    
+
     //------------------------------------------------------------------
     # Countable
-    
+
     public function count()
     {
         return count($this->links);
     }
-    
+
     //------------------------------------------------------------------
     # Iterator
 
@@ -165,7 +166,7 @@ class Node implements ArrayAccess, Countable, Iterator
     {
         return $this->links->valid();
     }
-    
+
     //------------------------------------------------------------------
     # ArrayAccess Implementation
 
